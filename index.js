@@ -9,6 +9,9 @@ const db = new Firestore();
 // });
 
 exports.getNetprobeData = async(req, res) => {
+  res.set('Access-Control-Allow-Origin', "*");
+  res.set('Access-Control-Allow-Methods', 'GET');
+
   if (req.method != 'GET') {
     // console.log(`${req.method} requests are not allowed.`);
     return res.status(403).send(`Method ${req.method} is not allowed.`);
