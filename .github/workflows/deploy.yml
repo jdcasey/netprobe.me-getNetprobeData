@@ -14,6 +14,9 @@ jobs:
       - name: deploy
         uses: google-github-actions/deploy-cloud-functions@main
         with:
-          name: myip
-          runtime: nodejs10
+          name: getNetprobeData
+          runtime: nodejs12
           credentials: ${{ secrets.gcp_credentials }}
+
+      - name: test
+        run: curl "${{ steps.deploy.outputs.url }}?nodeId=testbot&dataset=ping"
