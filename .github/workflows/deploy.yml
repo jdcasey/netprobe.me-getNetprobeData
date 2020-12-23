@@ -1,0 +1,19 @@
+---
+name: Deploy to Google Cloud Functions
+on: push
+
+jobs:
+  build-and-push:
+    name: Deploy
+    environment: google-functions
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: deploy
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: myip
+          runtime: nodejs10
+          credentials: ${{ secrets.gcp_credentials }}
