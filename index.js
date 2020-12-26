@@ -40,7 +40,7 @@ exports.getNetprobeData = async(req, res) => {
   const snapshot = await db.collection(`netprobe/${node}/${ds}`)
     .where(`tstamp <= ${end.getTime()}`).where(`tstamp >= ${start.getTime()}`)
     .orderBy('tstamp')
-    // .limit(100)
+    .limit(400)
     .get();
 
   let data = [];
