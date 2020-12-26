@@ -35,7 +35,7 @@ exports.getNetprobeData = async(req, res) => {
   }
 
   let startDate = new Date()
-  start.setHours(endDate.getHours()-6);
+  startDate.setHours(endDate.getHours()-6);
 
   if(start && start.length > 6){
     startDate = moment(start).toDate();
