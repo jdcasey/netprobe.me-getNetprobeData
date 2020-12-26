@@ -25,10 +25,22 @@ exports.getNetprobeData = async(req, res) => {
       "Query parameters 'nodeId' and 'dataset' are required.");
   }
 
+  let start = escapeHtml(req.query.start);
+  let end = escapeHtml(req.query.end);
+  if(!end){
+    end = new Date();
+  }
+
+  if(!start){
+    start = new Date();
+    start.setHours(end.getHours()-6);
+  }
+
   console.log(`Retrieving ${ds} results for node: ${node}`);
   const snapshot = await db.collection(`netprobe/${node}/${ds}`)
+    .where(`tstamp <= ${end.getTime()}`).where(`tstamp >= ${start.getTime()}`)
     .orderBy('tstamp')
-    .limit(100)
+    // .limit(100)
     .get();
 
   let data = [];
