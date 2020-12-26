@@ -30,14 +30,14 @@ exports.getNetprobeData = async(req, res) => {
   let end = escapeHtml(req.query.end);
 
   endDate = new Date();
-  if(end){
+  if(end && end.length > 6){
     endDate = moment(end).toDate();
   }
 
   let startDate = new Date()
-  start.setHours(end.getHours()-6);
+  start.setHours(endDate.getHours()-6);
 
-  if(start){
+  if(start && start.length > 6){
     startDate = moment(start).toDate();
   }
 
