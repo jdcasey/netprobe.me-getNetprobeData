@@ -56,11 +56,14 @@ exports.getNetprobeData = async(req, res) => {
     }
   }
 
-  console.log(`Retrieving ${ds} results for node: ${node} between ${startDate} and ${endDate}`);
-  console.log(`Where clause #1: 'tstamp <= ${endDate.getTime()}'`)
-  console.log(`Where clause #2: 'tstamp >= ${startDate.getTime()}'`)
+  let startSec = Math.floor(startDate.getTime()/1000);
+  let endSec = Math.ceil(endDate.getTime()/1000);
+
+  console.log(`Retrieving ${ds} results for node: ${node} between ${startSec} and ${endSec}`);
+  console.log(`Where clause #1: 'tstamp <= ${endSec}'`)
+  console.log(`Where clause #2: 'tstamp >= ${startSec}'`)
   db.collection(`netprobe/${node}/${ds}`)
-    .where(`tstamp <= ${endDate.getTime()}`).where(`tstamp >= ${startDate.getTime()}`)
+    .where(`tstamp <= ${endSec}`).where(`tstamp >= ${startSec}`)
     .orderBy('tstamp')
     .limit(400)
     .get().then((docs)=>{
