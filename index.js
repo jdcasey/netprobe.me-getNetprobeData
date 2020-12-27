@@ -28,18 +28,30 @@ exports.getNetprobeData = async(req, res) => {
 
   let start = escapeHtml(req.query.start);
   let end = escapeHtml(req.query.end);
-  console.log(`Got query for start: '${start}', end: '${node}', node: '${node}', dataset: '${ds}'`);
+  console.log(`Got query for start: '${start}', end: '${end}', node: '${node}', dataset: '${ds}'`);
 
   endDate = new Date();
   if(end && end.length > 6){
-    endDate = moment(end).toDate();
+    console.log(`Parsing moment from: '${end}'`);
+    try{
+      endDate = moment(end).toDate();
+    }
+    catch(err){
+      console.log("Error parsing end date: " + err);
+    }
   }
 
   let startDate = new Date()
   startDate.setHours(endDate.getHours()-6);
 
   if(start && start.length > 6){
-    startDate = moment(start).toDate();
+    console.log(`Parsing moment from: '${start}'`);
+    try{
+      startDate = moment(start).toDate();
+    }
+    catch(err){
+      console.log("Error parsing start date: " + err);
+    }
   }
 
   console.log(`Retrieving ${ds} results for node: ${node} between ${startDate} and ${endDate}`);
