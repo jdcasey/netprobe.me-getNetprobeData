@@ -31,7 +31,7 @@ exports.getNetprobeData = async(req, res) => {
   console.log(`Got query for start: '${start}', end: '${end}', node: '${node}', dataset: '${ds}'`);
 
   endDate = new Date();
-  if(typeof end !== "undefined" && end.length > 6){
+  if(typeof end === "string" && end.length > 6){
     console.log(`Parsing moment from: '${end}'`);
     try{
       endDate = moment(end).toDate();
@@ -44,7 +44,7 @@ exports.getNetprobeData = async(req, res) => {
   let startDate = new Date()
   startDate.setHours(endDate.getHours()-6);
 
-  if(typeof end !== "undefined" && start.length > 6){
+  if(typeof end === "string" && start.length > 6){
     console.log(`Parsing moment from: '${start}'`);
     try{
       startDate = moment(start).toDate();
