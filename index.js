@@ -77,10 +77,9 @@ exports.getNetprobeData = async(req, res) => {
       });
 
       return res.status(200).send(data);
-    }, (err)=>{
+    }).catch(err=>{
       console.error(err);
       return res.status(400).send({ error: 'Unable to retrieve', err });
-
-    })
+    });
 
 };
