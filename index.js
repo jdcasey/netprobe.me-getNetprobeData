@@ -57,6 +57,8 @@ exports.getNetprobeData = async(req, res) => {
   }
 
   console.log(`Retrieving ${ds} results for node: ${node} between ${startDate} and ${endDate}`);
+  console.log(`Where clause #1: 'tstamp <= ${endDate.getTime()}'`)
+  console.log(`Where clause #2: 'tstamp >= ${startDate.getTime()}'`)
   db.collection(`netprobe/${node}/${ds}`)
     .where(`tstamp <= ${endDate.getTime()}`).where(`tstamp >= ${startDate.getTime()}`)
     .orderBy('tstamp')
