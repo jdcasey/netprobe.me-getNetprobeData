@@ -18,6 +18,8 @@ exports.getNetprobeData = async(req, res) => {
     return res.status(403).send(`Method ${req.method} is not allowed.`);
   }
 
+  console.log(`Got request parameters:\n\n${JSON.stringify(req.query)}`);
+
   let node = escapeHtml(req.query.nodeId);
   let ds = escapeHtml(req.query.dataset);
   if (!(node && ds)) {
