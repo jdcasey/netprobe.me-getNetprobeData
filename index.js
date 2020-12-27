@@ -33,7 +33,7 @@ exports.getNetprobeData = async(req, res) => {
   console.log(`Got query for start: '${start}' (${typeof start}), end: '${end}' (${typeof end}), node: '${node}', dataset: '${ds}'`);
 
   endDate = new Date();
-  if(typeof end === "string" && end.length > 6){
+  if(end !== 'undefined' && end.length > 6){
     console.log(`Parsing moment from: '${end}'`);
     try{
       endDate = moment(end).toDate();
@@ -46,7 +46,7 @@ exports.getNetprobeData = async(req, res) => {
   let startDate = new Date()
   startDate.setHours(endDate.getHours()-6);
 
-  if(typeof end === "string" && start.length > 6){
+  if(start !== 'undefined' && start.length > 6){
     console.log(`Parsing moment from: '${start}'`);
     try{
       startDate = moment(start).toDate();
@@ -61,7 +61,7 @@ exports.getNetprobeData = async(req, res) => {
     .where(`tstamp <= ${endDate.getTime()}`).where(`tstamp >= ${startDate.getTime()}`)
     .orderBy('tstamp')
     .limit(400)
-    .get().then(docs=>{
+    .get().then((docs)=>{
       let data = [];
       docs.forEach(doc => {
         let record = doc.data();
@@ -72,7 +72,7 @@ exports.getNetprobeData = async(req, res) => {
       });
 
       return res.status(200).send(data);
-    }).catch(err=>{
+    }, (err)=>{
       console.error(err);
       return res.status(400).send({ error: 'Unable to retrieve', err });
 
