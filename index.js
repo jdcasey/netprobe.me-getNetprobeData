@@ -30,7 +30,7 @@ exports.getNetprobeData = async(req, res) => {
 
   let start = escapeHtml(req.query.start);
   let end = escapeHtml(req.query.end);
-  console.log(`Got query for start: '${start}', end: '${end}', node: '${node}', dataset: '${ds}'`);
+  console.log(`Got query for start: '${start}' (${typeof start}), end: '${end}' (${typeof end}), node: '${node}', dataset: '${ds}'`);
 
   endDate = new Date();
   if(typeof end === "string" && end.length > 6){
