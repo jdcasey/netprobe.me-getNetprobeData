@@ -36,7 +36,7 @@ exports.getNetprobeData = async(req, res) => {
   if(end !== 'undefined' && end.length > 6){
     console.log(`Parsing moment from: '${end}'`);
     try{
-      endDate = moment(end).toDate();
+      endDate = new Date(parseInt(end));
     }
     catch(err){
       console.log("Error parsing end date: " + err);
@@ -49,7 +49,7 @@ exports.getNetprobeData = async(req, res) => {
   if(start !== 'undefined' && start.length > 6){
     console.log(`Parsing moment from: '${start}'`);
     try{
-      startDate = moment(start).toDate();
+      startDate = new Date(parseInt(start));
     }
     catch(err){
       console.log("Error parsing start date: " + err);
